@@ -112,9 +112,81 @@ def addExpense():
         json.dump(list_data, file, indent=5)
 
 def viewTransactions():
-    print('hello')
+    os.system('clear')
+    print("\t\t\t***View Transactions\n")
+    print("choose an action:\n 1.Income Transactions\n 2.Expenses\n 3.Totals and balance\n")
 
+    choice = int(input())
+    match choice:
+        case 1: income()
+        case 2: expenses()
+        case 3: totalsAndBalance()
+        case _: print("invalid input(choose between 1 to 3)")
+
+#view summary
 def viewSummary():
     print("hello")
+
+#view transactions functions
+def income():
+    file_name = 'income.json'
+    try:
+        with open(file_name, 'r') as file:
+            income_data = json.load(file)
+    except FileNotFoundError:
+        print("File does not exist")
+
+    #load data from json file and print them out
+    for i in income_data:
+        print(f"Amount: {i['Amount']:8.2f}| Type: {i['Type']:6}| Category: {i['Category']:12}| Description: {i['Description']:}| Date/Time: {i['Date/Time']}|")
+
+def expenses():
+    file_name = 'expenses.json'
+    try:
+        with open(file_name, 'r') as file:
+            expense_data = json.load(file)
+    except FileNotFoundError:
+        print("File does not exist")
+
+    for i in expense_data:
+        print(f"Amount: {i['amount']:8.2f}| Used for: {i['used for']}| Date/Time: {i['date-time']}|")
+
+def totalsAndBalance():
+    #income data file load
+    file_name = 'income.json'
+    try:
+        with open(file_name, 'r') as file:
+            income_data = json.load(file)
+    except FileNotFoundError:
+        print("File does not exist")
+
+    #expenses file load
+    file_name = 'expenses.json'
+    try:
+        with open(file_name, 'r') as file:
+            expenses_data = json.load(file)
+    except FileNotFoundError:
+        print("File does not exist")
+
+    #Total Income
+    amount = 0
+    for i in income_data:
+        amount += i['Amount']
+    print(f"Total Income is: {amount}")
+
+    #Total Expenses
+    expenses = 0
+    for i in expenses_data:
+        expenses += i['amount']
+    print(f'Total Expense is: {expenses}')
+
+    #Balances Income-expense
+    balance = amount - expenses
+    if balance < 0:
+        print(f"You have a debt of: {balance}")
+    elif balance == 0:
+        print(f"You have no balance")
+    else:
+        print(f"You have a balance of: {balance}")
 
 main()
