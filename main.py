@@ -66,7 +66,7 @@ def addIncome():
     new_data = {'Amount':amount,'Type':'Income','Category': category, 'Description':description, 'Date/Time': date_time}
    
    #add data to file
-    file_name = 'data.json'
+    file_name = 'income.json'
     try:
         with open(file_name,"r") as file:
             try:
@@ -82,10 +82,37 @@ def addIncome():
 
 
 def addExpense():
-    print("hello")
+    os.system('clear')
+    print("\t\t\t***Add Expense")
+
+    print("What did you use the money for: ")
+    ans = input()
+    print("amount used: ")
+    amount = int(input())
+
+    #adding time
+    now = datetime.now()
+    date_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    new_data = {'amount': amount, 'used for':ans, 'date-time':date_time}
+
+    #add data to file
+    file_name = 'expenses.json'
+    try:
+        with open(file_name,"r") as file:
+            try:
+                list_data = json.load(file)
+            except json.JSONDecodeError:
+                list_data = []
+    except FileNotFoundError:
+        list_data = []
+
+    list_data.append(new_data)
+    with open(file_name, 'w') as file:
+        json.dump(list_data, file, indent=5)
 
 def viewTransactions():
-    print("hello")
+    print('hello')
 
 def viewSummary():
     print("hello")
