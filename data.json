@@ -1,0 +1,16 @@
+[
+     {
+          "Amount": 500.0,
+          "Type": "Income",
+          "Category": "Home Business",
+          "Description": "let us",
+          "Date/Time": "2025-01-17 15:55:27"
+     },
+     {
+          "Amount": 200.0,
+          "Type": "Income",
+          "Category": "Work Business",
+          "Description": "also us",
+          "Date/Time": "2025-01-17 15:55:50"
+     }
+]

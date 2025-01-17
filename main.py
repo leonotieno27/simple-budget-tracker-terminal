@@ -4,6 +4,8 @@
 
 import os
 import sys
+import json
+from datetime import datetime
 
 def main():
     os.system('clear')
@@ -29,7 +31,55 @@ def main():
 
 
 def addIncome():
-    print("hello")
+    os.system('clear')
+    print("\t\t\tAdd Income")
+
+    #add amount
+    amount = float(input("Enter amount. \n"))
+
+    #print to confirm amount
+    print(amount)
+    print("Type: Income")
+
+    #add category
+    print("Choose category(use numbers):\n 1.home business \n 2.work business \n 3.part-time business")
+    choice = int(input())
+    
+    #based on choice categorize
+    if choice == 1:
+        category = 'Home Business'
+    elif choice == 2:
+        category = 'Work Business'
+    elif choice == 3:
+        category = 'Part-Time Business'
+    
+    print(category)
+
+    #add  description
+    print("Add description about the transaction:")
+    description = input()
+
+    #adding time
+    now = datetime.now()
+    date_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    new_data = {'Amount':amount,'Type':'Income','Category': category, 'Description':description, 'Date/Time': date_time}
+   
+   #add data to file
+    file_name = 'data.json'
+    try:
+        with open(file_name,"r") as file:
+            try:
+                list_data = json.load(file)
+            except json.JSONDecodeError:
+                list_data = []
+    except FileNotFoundError:
+        list_data = []
+
+    list_data.append(new_data)
+    with open(file_name, 'w') as file:
+        json.dump(list_data, file, indent=5)
+
 
 def addExpense():
     print("hello")
